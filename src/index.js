@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(container);
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/tgb">
       <ColorModeScript />
       <App />
     </BrowserRouter>

@@ -1,9 +1,9 @@
 import React from "react";
 import {ChakraProvider, Box, HStack, extendTheme, VStack} from "@chakra-ui/react";
 import {ColorModeSwitcher} from "ColorModeSwitcher";
+import {Routes, Route} from "react-router-dom";
+import LoginAdminPage from "scenes/LoginAdminPage";
 import CreateAdminPage from "scenes/CreateAdminPage";
-import {BrowserRouter} from "react-router-dom";
-// import LoginAdminPage from "scenes/LoginAdminPage";
 
 const theme = extendTheme({
   breakpoints: {
@@ -20,10 +20,13 @@ function App() {
     <ChakraProvider theme={theme}>
       <VStack w="full" h="100vh">
         <HStack justifyContent="flex-end" px={9} py={1} w="full">
-          <ColorModeSwitcher justifySelf="flex-end" />
+          <ColorModeSwitcher />
         </HStack>
         <Box w="full" h="full" px={3}>
-          <CreateAdminPage />
+          <Routes>
+            <Route path="create-admin" element={<CreateAdminPage />} />
+            <Route path="login" element={<LoginAdminPage />} />
+          </Routes>
         </Box>
       </VStack>
     </ChakraProvider>
