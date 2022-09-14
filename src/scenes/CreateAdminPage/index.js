@@ -1,63 +1,50 @@
-import {
-  Button,
-  Center,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  useColorModeValue,
-  VStack,
-} from "@chakra-ui/react";
+import {FormControl, FormLabel, Input, useColorModeValue, Link} from "@chakra-ui/react";
+import FormTemplate from "components/FormTemplate";
 
 const CreateAdminPage = () => {
   const colorModeAlpha = useColorModeValue("blackAlpha.", "whiteAlpha.");
+  const linkColorAlpha = useColorModeValue("500", "200");
+
+  const inputs = (
+    <>
+      <FormControl isRequired>
+        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
+          Username
+        </FormLabel>
+        <Input variant="filled" size="sm" />
+      </FormControl>
+      <FormControl isRequired>
+        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
+          Email
+        </FormLabel>
+        <Input variant="filled" size="sm" />
+      </FormControl>
+      <FormControl isRequired>
+        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
+          Password
+        </FormLabel>
+        <Input variant="filled" size="sm" />
+      </FormControl>
+      <FormControl isRequired>
+        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
+          Confirm Password
+        </FormLabel>
+        <Input variant="filled" size="sm" />
+      </FormControl>
+    </>
+  );
+
+  const otherLink = (
+    <Link color={`blue.${linkColorAlpha}`}>Login to existing Admin account</Link>
+  );
 
   return (
-    <Center w="full" h="full">
-      <VStack
-        w="full"
-        maxW="sm"
-        borderWidth={1}
-        borderColor={`${colorModeAlpha}300`}
-        borderRadius="lg"
-        px={5}
-        py={9}
-        gap={[3, 5]}
-      >
-        <Heading size="lg" color={`${colorModeAlpha}800`}>
-          Create Admin Account
-        </Heading>
-        <VStack w="full">
-          <FormControl isRequired>
-            <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-              Username
-            </FormLabel>
-            <Input variant="filled" size="sm" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-              Email
-            </FormLabel>
-            <Input variant="filled" size="sm" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-              Password
-            </FormLabel>
-            <Input variant="filled" size="sm" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-              Confirm Password
-            </FormLabel>
-            <Input variant="filled" size="sm" />
-          </FormControl>
-        </VStack>
-        <Button w="full" colorScheme="blue" size="sm">
-          Create
-        </Button>
-      </VStack>
-    </Center>
+    <FormTemplate
+      title="Create new Admin account"
+      buttonText="Create"
+      inputs={inputs}
+      otherLink={otherLink}
+    />
   );
 };
 
