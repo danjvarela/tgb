@@ -1,7 +1,8 @@
 import React from "react";
 import {ChakraProvider, Box, HStack, theme, VStack} from "@chakra-ui/react";
 import {ColorModeSwitcher} from "ColorModeSwitcher";
-import CreateAdminPage from "scenes/CreateAdminPage";
+// import CreateAdminPage from "scenes/CreateAdminPage";
+import LoginAdminPage from "scenes/LoginAdminPage";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
           <ColorModeSwitcher justifySelf="flex-end" />
         </HStack>
         <Box w="full" h="full" px={3}>
-          <CreateAdminPage />
+          <LoginAdminPage />
         </Box>
       </VStack>
     </ChakraProvider>

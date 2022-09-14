@@ -9,7 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-const CreateAdminPage = () => {
+const LoginAdminPage = () => {
   const colorModeAlpha = useColorModeValue("blackAlpha.", "whiteAlpha.");
 
   return (
@@ -25,30 +25,18 @@ const CreateAdminPage = () => {
         gap={[3, 5]}
       >
         <Heading size="lg" color={`${colorModeAlpha}800`}>
-          Create Admin Account
+          Login to Admin Account
         </Heading>
         <VStack w="full">
           <FormControl isRequired>
             <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-              Username
-            </FormLabel>
-            <Input variant="filled" size="sm" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-              Email
+              Username or Email
             </FormLabel>
             <Input variant="filled" size="sm" />
           </FormControl>
           <FormControl isRequired>
             <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
               Password
-            </FormLabel>
-            <Input variant="filled" size="sm" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-              Confirm Password
             </FormLabel>
             <Input variant="filled" size="sm" />
           </FormControl>
@@ -61,4 +49,4 @@ const CreateAdminPage = () => {
   );
 };
 
-export default CreateAdminPage;
+export default LoginAdminPage;
