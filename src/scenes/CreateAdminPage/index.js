@@ -1,11 +1,4 @@
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  useColorModeValue,
-  Link,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import {useColorModeValue, Link} from "@chakra-ui/react";
 import FormGroup from "components/FormGroup";
 import FormTemplate from "components/FormTemplate";
 import {useEffect, useState} from "react";
@@ -13,7 +6,6 @@ import Admin from "services/admins";
 import {isEmpty, pipe} from "services/utilities";
 
 const CreateAdminPage = () => {
-  const colorModeAlpha = useColorModeValue("blackAlpha.", "whiteAlpha.");
   const linkColorAlpha = useColorModeValue("500", "200");
 
   const [formData, setFormData] = useState({

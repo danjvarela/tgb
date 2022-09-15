@@ -1,6 +1,7 @@
 import {faker} from "@faker-js/faker";
 import {saveToStorage} from "services/storage";
 import Admin from "services/admins";
+import {pipe} from "services/utilities";
 
 describe("Admin", () => {
   beforeEach(() => {
@@ -20,8 +21,9 @@ describe("Admin", () => {
     const admin = Admin.new(adminProps);
     expect(admin).toMatchObject({
       ...adminProps,
-      createdAt: null,
       errors: {},
+      createdAt: null,
+      loggedIn: false,
     });
   });
 
@@ -64,5 +66,39 @@ describe("Admin", () => {
     const admin = Admin.new({...adminProps, confirmPassword: ""});
     const savedAdmin = Admin.save(admin);
     expect(Admin.hasError(savedAdmin));
+  });
+
+  test("can update existing admin", () => {
+    const newEmail = faker.internet.email().toLowerCase();
+    pipe(Admin.new, Admin.save, (admin) => Admin.update(admin, {email: newEmail}))(
+      adminProps
+    );
+    expect(Admin.find({email: newEmail})).toBeDefined();
+  });
+
+  test("can log in existing admin", () => {
+    const savedAdmin = pipe(Admin.new, Admin.save)(adminProps);
+    Admin.logIn(savedAdmin);
+    expect(Admin.find(savedAdmin).loggedIn).toEqual(true);
+  });
+
+  test("can log out admin", () => {
+    const savedAdmin = pipe(Admin.new, Admin.save)(adminProps);
+    Admin.logOut(savedAdmin);
+    expect(Admin.find(savedAdmin).loggedIn).toEqual(false);
+  });
+
+  test("can get all admins", () => {
+    [...Array(10)].forEach((_, index) => {
+      const created = pipe(
+        Admin.new,
+        Admin.save
+      )({
+        ...adminProps,
+        email: `${index}${adminProps.email}`,
+        username: `${index}${adminProps.username}`,
+      });
+    });
+    expect(Admin.all().length).toEqual(10);
   });
 });
