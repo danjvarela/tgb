@@ -13,6 +13,7 @@ describe("Admin", () => {
     username: internet.userName().toLowerCase(),
     email: internet.email().toLowerCase(),
     password: "P@ssword123",
+    confirmPassword: "P@ssword123",
   };
 
   test("can create new Admin", () => {
@@ -57,5 +58,11 @@ describe("Admin", () => {
     Admin.save(admin);
     const duplicateAdmin = Admin.save(admin);
     expect(Admin.hasError(duplicateAdmin));
+  });
+
+  test("cannot save an admin if password and confirmation password does not match", () => {
+    const admin = Admin.new({...adminProps, confirmPassword: ""});
+    const savedAdmin = Admin.save(admin);
+    expect(Admin.hasError(savedAdmin));
   });
 });

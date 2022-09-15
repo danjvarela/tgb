@@ -1,6 +1,6 @@
 import {Center, VStack, Text, useColorModeValue, Heading, Button} from "@chakra-ui/react";
 
-const FormTemplate = ({title, inputs, buttonText, otherLink}) => {
+const FormTemplate = ({title, inputs, buttonText, otherLink, ...otherProps}) => {
   const blackOrWhite = useColorModeValue("blackAlpha.", "whiteAlpha.");
   return (
     <Center w="full" h="full">
@@ -13,13 +13,15 @@ const FormTemplate = ({title, inputs, buttonText, otherLink}) => {
         px={5}
         py={9}
         gap={5}
+        as="form"
+        {...otherProps}
       >
         <Heading size="lg" color={`${blackOrWhite}800`}>
           {title}
         </Heading>
         <VStack w="full">{inputs}</VStack>
         <VStack w="full">
-          <Button w="full" colorScheme="blue" size="sm">
+          <Button w="full" colorScheme="blue" size="sm" type="submit">
             {buttonText}
           </Button>
           {otherLink ? <Text fontSize="sm">or {otherLink}</Text> : <></>}
