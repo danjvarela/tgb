@@ -4,6 +4,7 @@ import {ColorModeSwitcher} from "ColorModeSwitcher";
 import {Routes, Route} from "react-router-dom";
 import LoginAdminPage from "scenes/LoginAdminPage";
 import CreateAdminPage from "scenes/CreateAdminPage";
+import Home from "scenes/Home";
 
 const theme = extendTheme({
   breakpoints: {
@@ -24,6 +25,7 @@ function App() {
         </HStack>
         <Box w="full" h="full" px={3}>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="create-admin" element={<CreateAdminPage />} />
             <Route path="login" element={<LoginAdminPage />} />
           </Routes>
