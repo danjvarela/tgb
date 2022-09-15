@@ -1,5 +1,6 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useColorModeValue, Link} from "@chakra-ui/react";
+import {Link as RouterLink} from "react-router-dom";
 import FormGroup from "components/FormGroup";
 import FormTemplate from "components/FormTemplate";
 import Admin from "services/admins";
@@ -52,7 +53,9 @@ const LoginAdminPage = () => {
   );
 
   const otherLink = (
-    <Link color={`blue.${linkColorAlpha}`}>Create new Admin Account</Link>
+    <Link as={RouterLink} to="/create-admin" color={`blue.${linkColorAlpha}`}>
+      Create new Admin Account
+    </Link>
   );
 
   return (
