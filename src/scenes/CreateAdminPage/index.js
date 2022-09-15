@@ -6,7 +6,7 @@ import {
   Link,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import {render} from "@testing-library/react";
+import FormGroup from "components/FormGroup";
 import FormTemplate from "components/FormTemplate";
 import {useEffect, useState} from "react";
 import Admin from "services/admins";
@@ -45,58 +45,34 @@ const CreateAdminPage = () => {
 
   const inputs = (
     <>
-      <FormControl isRequired isInvalid={hasErrorAt("username")}>
-        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-          Username
-        </FormLabel>
-        <Input
-          variant="filled"
-          size="sm"
-          name="username"
-          onChange={handleChange}
-          value={formData.username}
-        />
-        <FormErrorMessage>{errorAt("username")}</FormErrorMessage>
-      </FormControl>
-      <FormControl isRequired isInvalid={hasErrorAt("email")}>
-        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-          Email
-        </FormLabel>
-        <Input
-          variant="filled"
-          size="sm"
-          name="email"
-          onChange={handleChange}
-          value={formData.email}
-        />
-        <FormErrorMessage>{errorAt("email")}</FormErrorMessage>
-      </FormControl>
-      <FormControl isRequired isInvalid={hasErrorAt("password")}>
-        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-          Password
-        </FormLabel>
-        <Input
-          variant="filled"
-          size="sm"
-          name="password"
-          onChange={handleChange}
-          value={formData.password}
-        />
-        <FormErrorMessage>{errorAt("password")}</FormErrorMessage>
-      </FormControl>
-      <FormControl isRequired isInvalid={hasErrorAt("confirmPassword")}>
-        <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-          Confirm Password
-        </FormLabel>
-        <Input
-          variant="filled"
-          size="sm"
-          name="confirmPassword"
-          onChange={handleChange}
-          value={formData.confirmPassword}
-        />
-        <FormErrorMessage>{errorAt("confirmPassword")}</FormErrorMessage>
-      </FormControl>
+      <FormGroup
+        formControlProps={{isRequired: true, isInvalid: hasErrorAt("username")}}
+        formLabel="Username"
+        inputProps={{name: "username", onChange: handleChange, value: formData.username}}
+        formErrorMessage={errorAt("username")}
+      />
+      <FormGroup
+        formControlProps={{isRequired: true, isInvalid: hasErrorAt("email")}}
+        formLabel="Email"
+        inputProps={{name: "email", onChange: handleChange, value: formData.email}}
+        formErrorMessage={errorAt("email")}
+      />
+      <FormGroup
+        formControlProps={{isRequired: true, isInvalid: hasErrorAt("password")}}
+        formLabel="Password"
+        inputProps={{name: "password", onChange: handleChange, value: formData.password}}
+        formErrorMessage={errorAt("password")}
+      />
+      <FormGroup
+        formControlProps={{isRequired: true, isInvalid: hasErrorAt("confirmPassword")}}
+        formLabel="ConfirmPassword"
+        inputProps={{
+          name: "confirmPassword",
+          onChange: handleChange,
+          value: formData.confirmPassword,
+        }}
+        formErrorMessage={errorAt("confirmPassword")}
+      />
     </>
   );
 
