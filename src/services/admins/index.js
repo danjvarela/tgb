@@ -1,174 +1,125 @@
 import {getFromStorage, saveToStorage} from "services/storage";
-import {isEmpty, isValidEmail, toSentenceCase} from "services/utilities";
+import validate from "services/validator";
+import schema from "services/admins/schema";
+import {v4 as uuidv4} from "uuid";
+import {isEmpty, curry} from "services/utilities";
 
+/**
+ * Creates a new admin
+ */
 const newAdmin = (props) => {
   const {username, email, password, confirmPassword} = props;
   return Object.freeze({
-    username: username,
-    email: email,
-    password: password,
-    confirmPassword: confirmPassword,
-    errors: {},
+    username,
+    email,
+    password,
+    confirmPassword,
+    isLoggedIn: false,
     createdAt: null,
-    loggedIn: false,
+    id: uuidv4(),
   });
 };
 
+const hasError = (admin) => !isEmpty(admin.errors);
+
+/**
+ * Gets all admins from localstorage
+ */
 const allAdmins = () => getFromStorage("admins") || [];
 
-const findAdmin = (props) => {
-  const {email, username} = props;
-  const admins = allAdmins();
-  return admins.find(
-    (admin) =>
-      admin.email === email?.toLowerCase() || admin.username === username?.toLowerCase()
+/**
+ * Finds an admin using a key
+ */
+const findBy = (admin, key) =>
+  allAdmins().find((value) =>
+    key !== "id"
+      ? value[key]?.toLowerCase() === admin[key]?.toLowerCase()
+      : value[key] === admin[key]
   );
-};
 
-const hasError = (admin) =>
-  !isEmpty(admin.errors) &&
-  Object.keys(admin.errors).some((key) => !isEmpty(admin.errors[key]));
-
-const hasErrorAt = (key, admin) => !isEmpty(admin.errors) && !isEmpty(admin.errors[key]);
-
+/**
+ * validates an admin object
+ */
 const validateAdmin = (admin) => {
-  const {email, password, errors, username, confirmPassword} = admin;
-  const newAdmin = {...admin};
-
-  // validate blank or empty values
-  const blankErrors = ["username", "email", "password"].reduce((acc, key) => {
-    if (isEmpty(admin[key]))
-      acc[key] = [...(acc[key] || []), `${toSentenceCase(key)} can't be blank`];
-    return acc;
-  }, {});
-  newAdmin.errors = blankErrors;
-
-  // check if email is valid
-  if (!isValidEmail(email))
-    newAdmin.errors.email = [...(errors.email || []), "Email is invalid"];
-
-  // check if password has the right amount of characters
-  if (password.length < 6)
-    newAdmin.errors.password = [
-      ...(errors.password || []),
-      "Password must be at least 6 characters long",
-    ];
-
-  // check for existing admin in localstorage
-  if (findAdmin({email: email}))
-    newAdmin.errors.email = [
-      ...(errors.email || []),
-      "An Admin with the same email already exists",
-    ];
-
-  if (findAdmin({username: username}))
-    newAdmin.errors.username = [
-      ...(errors.username || []),
-      "An Admin with the same username already exists",
-    ];
+  const adminWithErr = {...admin, errors: validate(admin, schema)};
 
   // check if confirm password is the same as the password
-  if (confirmPassword !== password)
-    newAdmin.errors.confirmPassword = [
-      ...(errors.confirmPassword || []),
-      "Password confirmation does not match the Password",
+  const {password, confirmPassword} = admin;
+  if (password !== confirmPassword)
+    adminWithErr.errors.base = [
+      ...(adminWithErr.errors.base || []),
+      `Password confirmation does not match the password`,
     ];
 
-  // remove duplicate errors
-  Object.keys(newAdmin.errors).forEach(
-    (key) => (newAdmin.errors[key] = [...new Set(newAdmin.errors[key])])
-  );
+  // check if the admin already exists
+  const findByKey = curry(findBy)(admin);
+  const keys = ["email", "username", "id"];
+  const existingKey = keys.find((key) => !!findByKey(key));
+  if (existingKey)
+    adminWithErr.errors[existingKey] = [
+      ...(adminWithErr.errors[existingKey] || []),
+      `Admin with the same ${existingKey} already exists`,
+    ];
 
-  return newAdmin;
+  return adminWithErr;
 };
 
 const saveAdmin = (admin) => {
   const validatedAdmin = validateAdmin(admin);
-  if (hasError(validatedAdmin)) return validatedAdmin;
+  if (hasError(validateAdmin)) return validatedAdmin;
+  const {email, username} = admin;
   const completedAdmin = {
     ...admin,
-    createdAt: new Date(),
-    email: admin.email?.toLowerCase(),
-    username: admin.username?.toLowerCase(),
+    createdAt: Date.now(),
+    email: email.toLowerCase(),
+    username: username.toLowerCase(),
   };
   saveToStorage("admins", [...allAdmins(), completedAdmin]);
   return completedAdmin;
 };
 
-const updateAdmin = (admin, props) => {
+const updateAdmin = (admin, newProps) => {
+  const findAdminBy = curry(findBy)(admin);
+  const adminFromStorage =
+    findAdminBy("email") || findAdminBy("username") || findAdminBy("id");
+
+  if (isEmpty(adminFromStorage))
+    return {...admin, errors: {base: `Admin does not exist`}};
+
   const admins = allAdmins();
-
-  const findThe = (key, criteria) => {
-    if (key === "value") return admins.find(criteria);
-    if (key === "index") return admins.findIndex(criteria);
-    return {};
-  };
-
-  const criteria = (value) =>
-    value.email === admin.email?.toLowerCase() ||
-    value.username === admin.username?.toLowerCase();
-
-  const adminFromStorage = {
-    value: findThe("value", criteria),
-    index: findThe("index", criteria),
-  };
-
-  if (!adminFromStorage) return false;
-  admins[adminFromStorage.index] = {...admin, ...props};
+  const index = admins.findIndex((admin) => admin.id === adminFromStorage.id);
+  admins[index] = {...admin, newProps};
   saveToStorage("admins", admins);
+  return admins[index];
+};
+
+const deleteAdmin = (admin) => {
+  const findAdminBy = curry(findBy)(admin);
+  const adminFromStorage =
+    findAdminBy("email") || findAdminBy("username") || findAdminBy("id");
+
+  if (isEmpty(adminFromStorage))
+    return {...admin, errors: {base: `Admin does not exist`}};
+
+  const remainingAdmins = allAdmins().filter((admin) => admin.id !== adminFromStorage.id);
+  saveToStorage("admins", remainingAdmins);
   return true;
 };
 
-const logInAdmin = (admin) => {
-  const adminFromStorage = findAdmin(admin);
-  const newAdmin = {...admin, errors: {}};
+const logInAdmin = (admin) => updateAdmin(admin, {isLoggedIn: true});
 
-  if (isEmpty(admin.email) && isEmpty(admin.username))
-    newAdmin.errors.base = [
-      ...(newAdmin.errors.base || []),
-      "Username or Email can't be blank",
-    ];
+const logOutAdmin = (admin) => updateAdmin(admin, {isLoggedIn: false});
 
-  if (!adminFromStorage) {
-    newAdmin.errors.base = [
-      ...(newAdmin.errors.base || []),
-      "Admin with the given username or email does not exist",
-    ];
-  }
-
-  if (adminFromStorage?.password !== admin.password) {
-    newAdmin.errors.password = [
-      ...(newAdmin.errors.password || []),
-      "Incorrect Password",
-    ];
-  }
-  if (hasError(newAdmin)) return newAdmin;
-
-  updateAdmin(admin, {loggedIn: true});
-  return findAdmin(admin);
-};
-
-const logOutAdmin = (admin) => {
-  const newAdmin = {...admin};
-  if (!findAdmin(admin)) {
-    newAdmin.errors.base = [...(admin.errors.base || []), "Admin does not exists"];
-    return newAdmin;
-  }
-  updateAdmin(admin, {loggedIn: false});
-  return findAdmin(admin);
-};
-
-const Admin = {
+export default {
   new: newAdmin,
-  validate: validateAdmin,
-  save: saveAdmin,
-  find: findAdmin,
   all: allAdmins,
+  validate: validateAdmin,
+  all: allAdmins,
+  findBy: findBy,
+  save: saveAdmin,
   hasError: hasError,
-  hasErrorAt: hasErrorAt,
+  update: updateAdmin,
+  delete: deleteAdmin,
   logIn: logInAdmin,
   logOut: logOutAdmin,
-  update: updateAdmin,
 };
-
-export default Admin;

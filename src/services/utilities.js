@@ -23,4 +23,10 @@ const pipe =
   (arg) =>
     fns.reduce((x, fn) => fn(x), arg);
 
-export {isEmpty, toSentenceCase, isValidEmail, pipe};
+const curry = (fn) => {
+  return function curried(...args) {
+    return args.length < fn.length ? curried.bind(null, ...args) : fn(...args);
+  };
+};
+
+export {isEmpty, toSentenceCase, isValidEmail, pipe, curry};
