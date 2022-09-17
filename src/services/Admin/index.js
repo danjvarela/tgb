@@ -88,7 +88,7 @@ const updateAdmin = (admin, newProps) => {
 
   const admins = allAdmins();
   const index = admins.findIndex((admin) => admin.id === adminFromStorage.id);
-  admins[index] = {...admin, newProps};
+  admins[index] = {...admin, ...newProps};
   saveToStorage("admins", admins);
   return admins[index];
 };
@@ -106,7 +106,52 @@ const deleteAdmin = (admin) => {
   return true;
 };
 
-const logInAdmin = (admin) => updateAdmin(admin, {isLoggedIn: true});
+const logInAdmin = (loginProps) => {
+  const {usernameOrEmail, password} = loginProps;
+  const schema = {
+    usernameOrEmail: {required: true},
+    password: {required: true},
+  };
+
+  let validatedLoginProps = validate(loginProps, schema);
+
+  if (!isEmpty(validatedLoginProps)) {
+    if (validatedLoginProps.usernameOrEmail)
+      return {
+        errors: {
+          ...validatedLoginProps,
+          usernameOrEmail: ["Username or email can't be empty"],
+        },
+      };
+  }
+
+  const adminFromStorage = allAdmins().find(
+    (admin) =>
+      admin.email.toLowerCase() === usernameOrEmail.toLowerCase() ||
+      admin.username.toLowerCase() === usernameOrEmail.toLowerCase()
+  );
+
+  if (!adminFromStorage)
+    return {
+      errors: {
+        ...validatedLoginProps,
+        usernameOrEmail: [
+          ...(validatedLoginProps.usernameOrEmail || []),
+          `Admin with the given username or email does not exist`,
+        ],
+      },
+    };
+
+  if (adminFromStorage.password !== password)
+    return {
+      errors: {
+        ...validatedLoginProps,
+        password: [...(validatedLoginProps.password || []), `Incorrect password`],
+      },
+    };
+
+  return updateAdmin(adminFromStorage, {isLoggedIn: true});
+};
 
 const logOutAdmin = (admin) => updateAdmin(admin, {isLoggedIn: false});
 
