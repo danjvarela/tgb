@@ -1,12 +1,15 @@
 import {
   Button,
-  useColorModeValue,
   VStack,
   FormControl,
   FormErrorMessage,
+  Link,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import ControlledInput from "components/ControlledInput";
 import {useEffect, useState} from "react";
+import {Link as RouterLink} from "react-router-dom";
+import ControlledInput from "components/ControlledInput";
 import Admin from "services/Admin";
 import {isEmpty, pipe} from "services/utilities";
 
@@ -41,6 +44,7 @@ export default () => {
   const errorAt = (key) => hasErrorAt(key) && admin.errors[key][0];
 
   const inputProps = {variant: "filled", borderWidth: 1, onChange: handleChange};
+  const linkColor = useColorModeValue("purple.600", "purple.400");
 
   return (
     <VStack as="form" w="full" gap={5} onSubmit={handleSubmit}>
@@ -70,9 +74,17 @@ export default () => {
           </FormErrorMessage>
         </FormControl>
       </VStack>
-      <Button type="submit" w="full" colorScheme="purple">
-        Create Account
-      </Button>
+      <VStack w="full">
+        <Button type="submit" w="full" colorScheme="purple">
+          Create Account
+        </Button>
+        <Text fontSize="sm">
+          or{" "}
+          <Link as={RouterLink} to="/login" color={linkColor}>
+            Log in to an Admin Account
+          </Link>
+        </Text>
+      </VStack>
     </VStack>
   );
 };
