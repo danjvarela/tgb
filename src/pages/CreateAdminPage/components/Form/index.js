@@ -41,54 +41,26 @@ export default () => {
   const errorAt = (key) => hasErrorAt(key) && admin.errors[key][0];
 
   const inputProps = {variant: "filled", borderWidth: 1, onChange: handleChange};
-  const lightTheme = {
-    borderColor: "gray.300",
-    _hover: {borderColor: "gray.400"},
-    focusBorderColor: "purple.500",
-    bg: "gray.200",
-  };
-  const darkTheme = {
-    borderColor: "gray.600",
-    _hover: {borderColor: "gray.500"},
-    focusBorderColor: "purple.300",
-  };
-  const themeColors = useColorModeValue(lightTheme, darkTheme);
 
   return (
     <VStack as="form" w="full" gap={5} onSubmit={handleSubmit}>
       <VStack w="full">
         <FormControl isInvalid={hasErrorAt("username")}>
-          <ControlledInput
-            placeholder="Username"
-            name="username"
-            {...themeColors}
-            {...inputProps}
-          />
+          <ControlledInput placeholder="Username" name="username" {...inputProps} />
           <FormErrorMessage>{errorAt("username")}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={hasErrorAt("email")}>
-          <ControlledInput
-            placeholder="Email"
-            name="email"
-            {...themeColors}
-            {...inputProps}
-          />
+          <ControlledInput placeholder="Email" name="email" {...inputProps} />
           <FormErrorMessage>{errorAt("email")}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={hasErrorAt("password")}>
-          <ControlledInput
-            placeholder="Password"
-            name="password"
-            {...themeColors}
-            {...inputProps}
-          />
+          <ControlledInput placeholder="Password" name="password" {...inputProps} />
           <FormErrorMessage>{errorAt("password")}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={hasErrorAt("confirmPassword")}>
           <ControlledInput
             placeholder="Confirm Password"
             name="confirmPassword"
-            {...themeColors}
             {...inputProps}
           />
           <FormErrorMessage>

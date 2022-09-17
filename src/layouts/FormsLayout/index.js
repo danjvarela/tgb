@@ -1,4 +1,4 @@
-import {HStack, Center, Box, VStack} from "@chakra-ui/react";
+import {HStack, Center, VStack} from "@chakra-ui/react";
 import {ColorModeSwitcher} from "components/ColorModeSwitcher";
 
 export default ({children}) => {

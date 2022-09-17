@@ -38,18 +38,6 @@ export default () => {
   const errorAt = (key) => hasErrorAt(key) && errors[key][0];
 
   const inputProps = {variant: "filled", borderWidth: 1};
-  const lightTheme = {
-    borderColor: "gray.300",
-    _hover: {borderColor: "gray.400"},
-    focusBorderColor: "purple.500",
-    bg: "gray.200",
-  };
-  const darkTheme = {
-    borderColor: "gray.600",
-    _hover: {borderColor: "gray.500"},
-    focusBorderColor: "purple.300",
-  };
-  const themeColors = useColorModeValue(lightTheme, darkTheme);
 
   return (
     <VStack as="form" w="full" gap={5} onSubmit={handleSubmit}>
@@ -59,7 +47,6 @@ export default () => {
             placeholder="Username or Email"
             name="usernameOrEmail"
             onChange={handleChange}
-            {...themeColors}
             {...inputProps}
           />
           <FormErrorMessage>{errorAt("usernameOrEmail")}</FormErrorMessage>
@@ -69,7 +56,6 @@ export default () => {
             placeholder="Password"
             name="password"
             onChange={handleChange}
-            {...themeColors}
             {...inputProps}
           />
           <FormErrorMessage>{errorAt("password")}</FormErrorMessage>
