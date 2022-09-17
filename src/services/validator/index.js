@@ -29,7 +29,7 @@ const schemaFunction = {
   },
 };
 
-export default (obj, schema) => {
+const validate = (obj, schema) => {
   const initialErrorList = Object.entries(schema).reduce((acc, [key, requirements]) => {
     Object.keys(requirements).forEach((requirement) => {
       acc[key] = [...(acc[key] || []), ...schemaFunction[requirement](obj, key, schema)];
@@ -43,3 +43,5 @@ export default (obj, schema) => {
     return finalErrorList;
   }, {});
 };
+
+export default validate;

@@ -13,7 +13,7 @@ import ControlledInput from "components/ControlledInput";
 import Admin from "services/Admin";
 import {isEmpty, pipe} from "services/utilities";
 
-export default () => {
+const Form = () => {
   const [renderErrors, setRenderErrors] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -88,3 +88,5 @@ export default () => {
     </VStack>
   );
 };
+
+export default Form;

@@ -1,6 +1,6 @@
 import {Center, useColorModeValue} from "@chakra-ui/react";
 
-export default ({children, ...otherProps}) => {
+const Card = ({children, ...otherProps}) => {
   const darkTheme = {
     borderColor: "gray.600",
     bg: "gray.700",
@@ -18,3 +18,5 @@ export default ({children, ...otherProps}) => {
     </Center>
   );
 };
+
+export default Card;

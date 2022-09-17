@@ -155,11 +155,10 @@ const logInAdmin = (loginProps) => {
 
 const logOutAdmin = (admin) => updateAdmin(admin, {isLoggedIn: false});
 
-export default {
+const Admin = {
   new: newAdmin,
   all: allAdmins,
   validate: validateAdmin,
-  all: allAdmins,
   findBy: findBy,
   save: saveAdmin,
   hasError: hasError,
@@ -168,3 +167,5 @@ export default {
   logIn: logInAdmin,
   logOut: logOutAdmin,
 };
+
+export default Admin;

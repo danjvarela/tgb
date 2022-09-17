@@ -14,7 +14,7 @@ const theme = extendTheme({
   },
 });
 
-function App() {
+const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <VStack w="full" h="100vh">
@@ -25,6 +25,6 @@ function App() {
       </VStack>
     </ChakraProvider>
   );
-}
+};
 
 export default App;

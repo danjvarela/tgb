@@ -13,7 +13,7 @@ import {Link as RouterLink} from "react-router-dom";
 import Admin from "services/Admin";
 import {isEmpty} from "services/utilities";
 
-export default () => {
+const Form = () => {
   const [renderErrors, setRenderErrors] = useState(false);
   const [loginProps, setLoginProps] = useState({
     usernameOrEmail: "",
@@ -79,3 +79,5 @@ export default () => {
     </VStack>
   );
 };
+
+export default Form;

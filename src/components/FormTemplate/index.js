@@ -1,9 +1,9 @@
-import {Divider, Heading, Image} from "@chakra-ui/react";
+import {Heading, Image} from "@chakra-ui/react";
 import FormsLayout from "layouts/FormsLayout";
 import Card from "components/Card";
 import grapes from "assets/grapes.svg";
 
-export default ({title, formElement}) => {
+const FormTemplate = ({title, formElement}) => {
   return (
     <FormsLayout>
       <Card
@@ -28,3 +28,5 @@ export default ({title, formElement}) => {
     </FormsLayout>
   );
 };
+
+export default FormTemplate;

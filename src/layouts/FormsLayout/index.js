@@ -1,7 +1,7 @@
 import {HStack, Center, VStack} from "@chakra-ui/react";
 import {ColorModeSwitcher} from "components/ColorModeSwitcher";
 
-export default ({children}) => {
+const FormsLayout = ({children}) => {
   return (
     <VStack w="full" h="full">
       <HStack justifyContent="flex-end" px={{base: 3, md: 9}} py={1} w="full">
@@ -13,3 +13,5 @@ export default ({children}) => {
     </VStack>
   );
 };
+
+export default FormsLayout;

@@ -1,4 +1,4 @@
-export default {
+const schema = {
   username: {
     required: true,
   },
@@ -15,3 +15,5 @@ export default {
     required: true,
   },
 };
+
+export default schema;

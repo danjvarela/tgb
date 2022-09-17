@@ -1,7 +1,7 @@
 import {Input, useColorModeValue} from "@chakra-ui/react";
 import {useState} from "react";
 
-export default ({onChange, ...otherProps}) => {
+const ControlledInput = ({onChange, ...otherProps}) => {
   const [value, setValue] = useState("");
   const lightTheme = {
     borderColor: "gray.300",
@@ -23,3 +23,5 @@ export default ({onChange, ...otherProps}) => {
 
   return <Input value={value} onChange={handleChange} {...themeColors} {...otherProps} />;
 };
+
+export default ControlledInput;
