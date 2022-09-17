@@ -1,91 +1,31 @@
-import {Link as RouterLink} from "react-router-dom";
-import {useColorModeValue, Link} from "@chakra-ui/react";
-import FormGroup from "components/FormGroup";
-import FormTemplate from "components/FormTemplate";
-import {useEffect, useState} from "react";
-import {Route, Routes} from "react-router-dom";
-import Admin from "services/admins";
-import {isEmpty, pipe} from "services/utilities";
+import {Heading, Image} from "@chakra-ui/react";
+import FormsLayout from "layouts/FormsLayout";
+import Card from "components/Card";
+import grapes from "assets/grapes.svg";
+import Form from "./components/Form";
 
-const CreateAdminPage = () => {
-  const linkColorAlpha = useColorModeValue("500", "200");
-
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const [admin, setAdmin] = useState({});
-  const [renderInvalidInputs, setRenderInvalidInputs] = useState(false);
-
-  useEffect(() => pipe(Admin.new, Admin.validate, setAdmin)(formData), [formData]);
-
-  const hasErrorAt = (key) =>
-    renderInvalidInputs && !isEmpty(admin.errors) && !isEmpty(admin.errors[key]);
-
-  const errorAt = (key) => (hasErrorAt(key) ? admin.errors[key][0] : "");
-
-  const handleChange = ({target: {name, value}}) => {
-    setFormData((prevData) => ({...prevData, [name]: value}));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (Admin.hasError(admin)) setRenderInvalidInputs(true);
-    Admin.save(admin);
-  };
-
-  const inputs = (
-    <>
-      <FormGroup
-        formControlProps={{isRequired: true, isInvalid: hasErrorAt("username")}}
-        formLabel="Username"
-        inputProps={{name: "username", onChange: handleChange, value: formData.username}}
-        formErrorMessage={errorAt("username")}
-      />
-      <FormGroup
-        formControlProps={{isRequired: true, isInvalid: hasErrorAt("email")}}
-        formLabel="Email"
-        inputProps={{name: "email", onChange: handleChange, value: formData.email}}
-        formErrorMessage={errorAt("email")}
-      />
-      <FormGroup
-        formControlProps={{isRequired: true, isInvalid: hasErrorAt("password")}}
-        formLabel="Password"
-        inputProps={{name: "password", onChange: handleChange, value: formData.password}}
-        formErrorMessage={errorAt("password")}
-      />
-      <FormGroup
-        formControlProps={{isRequired: true, isInvalid: hasErrorAt("confirmPassword")}}
-        formLabel="ConfirmPassword"
-        inputProps={{
-          name: "confirmPassword",
-          onChange: handleChange,
-          value: formData.confirmPassword,
-        }}
-        formErrorMessage={errorAt("confirmPassword")}
-      />
-    </>
-  );
-
-  const otherLink = (
-    <Link as={RouterLink} to="/login" color={`blue.${linkColorAlpha}`}>
-      Login to existing Admin account
-    </Link>
-  );
-
+export default () => {
   return (
-    <FormTemplate
-      title="Create new Admin account"
-      buttonText="Create"
-      inputs={inputs}
-      otherLink={otherLink}
-      onSubmit={handleSubmit}
-      noValidate
-    />
+    <FormsLayout>
+      <Card
+        maxW={{base: "sm", md: "md"}}
+        w="full"
+        gap={5}
+        flexDir={{base: "column", md: "row"}}
+      >
+        <Heading
+          as="h1"
+          size="md"
+          textAlign={{base: "center", md: "left"}}
+          display="flex"
+          flexDir={{base: "row-reverse", md: "column"}}
+          gap={2}
+        >
+          Create new Admin Account
+          <Image src={grapes} w={{base: 5, md: 9}} h="auto" />
+        </Heading>
+        <Form />
+      </Card>
+    </FormsLayout>
   );
 };
-
-export default CreateAdminPage;

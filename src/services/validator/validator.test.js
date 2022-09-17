@@ -1,5 +1,5 @@
 import {isEmpty} from "services/utilities";
-import validate from "services/validator";
+import validate from "services/Validator";
 
 describe("validator", () => {
   it("can validate required items", () => {
@@ -53,7 +53,6 @@ describe("validator", () => {
           /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
       },
     };
-    console.log(validate(obj, schema));
     expect(isEmpty(validate(obj, schema))).toEqual(false);
   });
 });

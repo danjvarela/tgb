@@ -1,24 +1,15 @@
 import {
   FormControl,
   FormLabel,
-  Input,
   FormErrorMessage,
   useColorModeValue,
 } from "@chakra-ui/react";
+import Input from "./components/Input";
 
-const FormGroup = (props) => {
-  const {formControlProps, formLabel, inputProps, formErrorMessage} = props;
-  const colorModeAlpha = useColorModeValue("blackAlpha.", "whiteAlpha.");
-
+export default (props) => {
   return (
-    <FormControl {...formControlProps}>
-      <FormLabel color={`${colorModeAlpha}700`} fontSize="sm">
-        {formLabel}
-      </FormLabel>
-      <Input variant="filled" size="sm" {...inputProps} />
-      <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
+    <FormControl>
+      <Input />
     </FormControl>
   );
 };
-
-export default FormGroup;

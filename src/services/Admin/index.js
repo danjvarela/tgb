@@ -1,6 +1,6 @@
 import {getFromStorage, saveToStorage} from "services/storage";
-import validate from "services/validator";
-import schema from "services/admins/schema";
+import validate from "services/Validator";
+import schema from "services/Admin/schema";
 import {v4 as uuidv4} from "uuid";
 import {isEmpty, curry} from "services/utilities";
 
@@ -46,8 +46,8 @@ const validateAdmin = (admin) => {
   // check if confirm password is the same as the password
   const {password, confirmPassword} = admin;
   if (password !== confirmPassword)
-    adminWithErr.errors.base = [
-      ...(adminWithErr.errors.base || []),
+    adminWithErr.errors.confirmPassword = [
+      ...(adminWithErr.errors.confirmPassword || []),
       `Password confirmation does not match the password`,
     ];
 
@@ -66,7 +66,7 @@ const validateAdmin = (admin) => {
 
 const saveAdmin = (admin) => {
   const validatedAdmin = validateAdmin(admin);
-  if (hasError(validateAdmin)) return validatedAdmin;
+  if (hasError(validatedAdmin)) return validatedAdmin;
   const {email, username} = admin;
   const completedAdmin = {
     ...admin,
