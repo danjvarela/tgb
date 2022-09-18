@@ -3,6 +3,7 @@ import {ChakraProvider, extendTheme, VStack} from "@chakra-ui/react";
 import {Routes, Route} from "react-router-dom";
 import CreateAdminPage from "pages/CreateAdminPage";
 import LoginAdminPage from "pages/LoginAdminPage";
+import UsersPage from "pages/UsersPage";
 
 const theme = extendTheme({
   breakpoints: {
@@ -21,6 +22,7 @@ const App = () => {
         <Routes>
           <Route path="create-admin" element={<CreateAdminPage />} />
           <Route path="login" element={<LoginAdminPage />} />
+          <Route path="users" element={<UsersPage />} />
         </Routes>
       </VStack>
     </ChakraProvider>
