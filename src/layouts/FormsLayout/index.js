@@ -1,4 +1,5 @@
 import {HStack, Center, VStack} from "@chakra-ui/react";
+import Card from "components/Card";
 import {ColorModeSwitcher} from "components/ColorModeSwitcher";
 
 const FormsLayout = ({children}) => {
@@ -8,7 +9,7 @@ const FormsLayout = ({children}) => {
         <ColorModeSwitcher />
       </HStack>
       <Center w="full" h="full" px={3} flexGrow={1}>
-        {children}
+        <Card>{children}</Card>
       </Center>
     </VStack>
   );

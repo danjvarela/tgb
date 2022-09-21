@@ -1,8 +1,13 @@
-import FormTemplate from "components/FormTemplate";
-import Form from "./components/Form";
+import {Text} from "@chakra-ui/react";
+import Card from "components/Card";
+import FormsLayout from "layouts/FormsLayout";
 
 const CreateAdminPage = () => {
-  return <FormTemplate title="Create Admin Account" formElement={<Form />} />;
+  return (
+    <FormsLayout>
+      <Text>Create admin page</Text>
+    </FormsLayout>
+  );
 };
 
 export default CreateAdminPage;

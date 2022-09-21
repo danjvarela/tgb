@@ -1,8 +1,11 @@
-import FormTemplate from "components/FormTemplate";
-import Form from "./components/Form";
+import {VStack, Box} from "@chakra-ui/react";
 
 const LoginAdminPage = () => {
-  return <FormTemplate title="Login to Admin Account" formElement={<Form />} />;
+  return (
+    <VStack>
+      <Box>This is the Login Page</Box>
+    </VStack>
+  );
 };
 
 export default LoginAdminPage;

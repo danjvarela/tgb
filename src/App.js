@@ -1,19 +1,10 @@
 import React from "react";
-import {ChakraProvider, extendTheme, VStack} from "@chakra-ui/react";
+import {ChakraProvider, VStack} from "@chakra-ui/react";
 import {Routes, Route} from "react-router-dom";
 import CreateAdminPage from "pages/CreateAdminPage";
 import LoginAdminPage from "pages/LoginAdminPage";
 import UsersPage from "pages/UsersPage";
-
-const theme = extendTheme({
-  breakpoints: {
-    sm: "320px",
-    md: "768px",
-    lg: "960px",
-    xl: "1200px",
-    "2xl": "1536px",
-  },
-});
+import theme from "theme";
 
 const App = () => {
   return (

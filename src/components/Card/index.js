@@ -1,22 +1,9 @@
-import {Center, useColorModeValue} from "@chakra-ui/react";
+import {useStyleConfig, VStack} from "@chakra-ui/react";
 
-const Card = ({children, ...otherProps}) => {
-  const darkTheme = {
-    borderColor: "gray.600",
-    bg: "gray.700",
-  };
-
-  const lightTheme = {
-    borderColor: "gray.300",
-    bg: "gray.50",
-  };
-  const themeColor = useColorModeValue(lightTheme, darkTheme);
-
-  return (
-    <Center {...themeColor} borderWidth={1} borderRadius="lg" p={5} {...otherProps}>
-      {children}
-    </Center>
-  );
+const Card = (props) => {
+  const {baseStyle, ...rest} = props;
+  const styles = useStyleConfig("Card", {baseStyle});
+  return <VStack __css={styles} {...rest} />;
 };
 
 export default Card;
