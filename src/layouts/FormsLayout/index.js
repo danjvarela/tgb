@@ -9,7 +9,9 @@ const FormsLayout = ({children}) => {
         <ColorModeSwitcher />
       </HStack>
       <Center w="full" h="full" px={3} flexGrow={1}>
-        <Card>{children}</Card>
+        <Card w="full" maxW="sm">
+          {children}
+        </Card>
       </Center>
     </VStack>
   );
