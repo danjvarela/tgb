@@ -21,7 +21,7 @@ const CustomInput = ({label, iconButton, ...props}) => {
     <FormControl isInvalid={meta.touched && meta.error}>
       {label ? <label htmlFor={props.id || props.name}>{label}</label> : null}
       <InputGroup>
-        <Input type={type} {...field} {...props} />
+        <Input type={type} variant="filled" {...field} {...props} />
         <InputRightElement
           children={
             <IconButton

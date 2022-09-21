@@ -1,4 +1,5 @@
-import {Button, Heading, VStack} from "@chakra-ui/react";
+import {Button, HStack, Link, VStack, Text} from "@chakra-ui/react";
+import {Link as RouterLink} from "react-router-dom";
 import {Formik, Form} from "formik";
 import FormsLayout from "layouts/FormsLayout";
 import * as Yup from "yup";
@@ -7,10 +8,7 @@ import CustomInput from "components/CustomInput";
 
 const CreateAdminPage = () => {
   return (
-    <FormsLayout>
-      <Heading as="h1" fontSize="xl">
-        Create new Admin Account
-      </Heading>
+    <FormsLayout title="Create new Admin Account">
       <Formik
         initialValues={{
           email: "",
@@ -30,22 +28,32 @@ const CreateAdminPage = () => {
         })}
         onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
       >
-        <VStack as={Form} w="full">
-          <CustomInput name="username" type="text" placeholder="Username" />
-          <CustomInput name="email" type="text" placeholder="Email" />
-          <CustomPasswordInput
-            iconButton={{"aria-label": "Show Password", size: "sm"}}
-            placeholder="Password"
-            name="password"
-          />
-          <CustomPasswordInput
-            iconButton={{"aria-label": "Show Password", size: "sm"}}
-            placeholder="Confirm Password"
-            name="confirmPassword"
-          />
-          <Button colorScheme="purple" type="submit" w="full" mt={9}>
-            Create
-          </Button>
+        <VStack as={Form} w="full" gap={5}>
+          <VStack w="full">
+            <CustomInput name="username" type="text" placeholder="Username" />
+            <CustomInput name="email" type="text" placeholder="Email" />
+            <CustomPasswordInput
+              iconButton={{"aria-label": "Show Password", size: "sm"}}
+              placeholder="Password"
+              name="password"
+            />
+            <CustomPasswordInput
+              iconButton={{"aria-label": "Show Password", size: "sm"}}
+              placeholder="Confirm Password"
+              name="confirmPassword"
+            />
+          </VStack>
+          <VStack w="full">
+            <Button colorScheme="purple" type="submit" w="full">
+              Create
+            </Button>
+            <HStack>
+              <Text opacity={0.6}>or</Text>
+              <Link as={RouterLink} to="/login">
+                Login to an existing Admin Account
+              </Link>
+            </HStack>
+          </VStack>
         </VStack>
       </Formik>
     </FormsLayout>

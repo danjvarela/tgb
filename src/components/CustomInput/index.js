@@ -7,7 +7,7 @@ const CustomInput = ({label, ...props}) => {
   return (
     <FormControl isInvalid={meta.touched && meta.error}>
       {label ? <label htmlFor={props.id || props.name}>{label}</label> : null}
-      <Input {...field} {...props} />
+      <Input variant="filled" {...field} {...props} />
       {meta.touched && meta.error ? (
         <FormErrorMessage>{meta.error}</FormErrorMessage>
       ) : null}
