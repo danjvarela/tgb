@@ -10,7 +10,7 @@ const FormsLayout = ({title, children}) => {
       </HStack>
       <Center w="full" h="full" px={3} flexGrow={1}>
         <Card w="full" maxW="sm">
-          <Heading as="h1" fontSize="xl">
+          <Heading as="h1" fontSize="2xl">
             {title}
           </Heading>
           {children}
