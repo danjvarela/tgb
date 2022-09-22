@@ -39,4 +39,27 @@ const save = (admin) => {
   saveToStorage("admins", [...admins, completedAdmin]);
 };
 
-export {all, find, findBy, findById, findByEmail, findByUsername, save, create};
+const update = curry((admin, newValues) => {
+  const admins = all();
+  const index = admins.findIndex((value) => value.id === admin.id);
+  admins[index] = {...admins[index], ...newValues};
+  saveToStorage("admins", admins);
+  return admins[index];
+});
+
+const logIn = (admin) => update(admin, {isLoggedIn: true});
+const logOut = (admin) => update(admin, {isLoggedIn: false});
+
+export {
+  all,
+  find,
+  findBy,
+  findById,
+  findByEmail,
+  findByUsername,
+  save,
+  create,
+  update,
+  logIn,
+  logOut,
+};

@@ -1,14 +1,4 @@
-import {
-  Button,
-  HStack,
-  Link,
-  VStack,
-  Text,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from "@chakra-ui/react";
+import {Button, HStack, Link, VStack, Text, Alert, AlertIcon} from "@chakra-ui/react";
 import {Link as RouterLink} from "react-router-dom";
 import {Formik, Form} from "formik";
 import {useState} from "react";
@@ -27,6 +17,7 @@ const CreateAdminPage = () => {
     if (adminFromStorage) return setAdminExists(true);
     Admin.save(admin);
   };
+
   return (
     <FormsLayout title="Create new Admin Account">
       <Formik
