@@ -20,7 +20,7 @@ const find = (user) => all().find((value) => value.id === user.id);
 
 const save = (user) => {
   const users = all();
-  const lastId = isEmpty(users) ? -1 : Math.max(...users.map((user) => user.id));
+  const lastId = isEmpty(users) ? 0 : Math.max(...users.map((user) => user.id));
   const completedUser = {...user, createdAt: Date.now(), id: lastId + 1};
   saveToStorage("users", [...users, completedUser]);
   return completedUser;

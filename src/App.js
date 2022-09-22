@@ -27,6 +27,7 @@ const App = () => {
           <Route path="create-admin" element={<CreateAdminPage />} />
           <Route path="login" element={<LoginAdminPage onLogin={setLoggedAdmin} />} />
           <Route path="users" element={<UsersPage users={users} />} />
+          <Route path="users/:id" element={<UsersPage users={users} />} />
         </Routes>
       </VStack>
     </ChakraProvider>

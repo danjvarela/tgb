@@ -1,9 +1,10 @@
 import {HStack, Text, VStack, Link, Tr, Td, useColorModeValue} from "@chakra-ui/react";
+import {Link as RouterLink} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import * as Admin from "services/Admin";
 
 const UserItem = ({user}) => {
-  const {firstName, lastName, createdAt, createdBy} = user;
+  const {firstName, lastName, createdAt, createdBy, id} = user;
   const adminName = Admin.findById(createdBy).username;
 
   const lightTheme = {
@@ -30,7 +31,9 @@ const UserItem = ({user}) => {
             {`${firstName} ${lastName}`}
           </Text>
           <HStack>
-            <Link fontSize="sm">View</Link>
+            <Link as={RouterLink} to={`/users/${id}`} fontSize="sm">
+              View
+            </Link>
             <Link fontSize="sm">Update</Link>
             <Link fontSize="sm">Delete</Link>
           </HStack>
