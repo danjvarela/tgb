@@ -16,7 +16,7 @@ const create = (props) => {
 const all = () => getFromStorage("admins") || [];
 
 const findBy = curry((key, value) => all().find((admin) => admin[key] === value));
-const findById = findBy("id");
+const findById = (id) => findBy("id")(parseInt(id));
 const findByEmail = (email) => findBy("email")(email.toLowerCase());
 const findByUsername = (username) => findBy("username")(username.toLowerCase());
 

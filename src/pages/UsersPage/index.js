@@ -3,7 +3,6 @@ import MainLayout from "layouts/MainLayout";
 import UserItem from "./components/UserItem";
 
 const UsersPage = ({users}) => {
-  console.log(users);
   return (
     <MainLayout>
       <TableContainer w="full" maxH="full" overflowY="auto">
@@ -12,7 +11,7 @@ const UsersPage = ({users}) => {
             {users
               .sort((a, b) => b.createdAt - a.createdAt)
               .map((user) => (
-                <UserItem user={user} />
+                <UserItem key={user.id} user={user} />
               ))}
           </Tbody>
         </Table>

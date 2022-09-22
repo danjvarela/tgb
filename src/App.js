@@ -4,6 +4,7 @@ import {Routes, Route} from "react-router-dom";
 import CreateAdminPage from "pages/CreateAdminPage";
 import LoginAdminPage from "pages/LoginAdminPage";
 import UsersPage from "pages/UsersPage";
+import UserDashboardPage from "pages/UserDashboardPage";
 import theme from "theme";
 import * as User from "services/User";
 
@@ -27,7 +28,7 @@ const App = () => {
           <Route path="create-admin" element={<CreateAdminPage />} />
           <Route path="login" element={<LoginAdminPage onLogin={setLoggedAdmin} />} />
           <Route path="users" element={<UsersPage users={users} />} />
-          <Route path="users/:id" element={<UsersPage users={users} />} />
+          <Route path="users/:id" element={<UserDashboardPage />} />
         </Routes>
       </VStack>
     </ChakraProvider>

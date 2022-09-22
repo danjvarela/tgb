@@ -16,7 +16,8 @@ const create = (props) => {
 
 const all = () => getFromStorage("users") || [];
 
-const find = (user) => all().find((value) => value.id === user.id);
+const find = (user) => all().find((value) => value.id === parseInt(user.id));
+const findById = (id) => all().find((value) => value.id === parseInt(id));
 
 const save = (user) => {
   const users = all();
@@ -42,4 +43,4 @@ const seed = (count, currentAdmin) => {
   );
 };
 
-export {create, all, find, save, seed};
+export {create, all, find, findById, save, seed};
