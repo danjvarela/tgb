@@ -9,9 +9,11 @@ const UsersPage = ({users}) => {
       <TableContainer w="full" maxH="full" overflowY="auto">
         <Table variant="simple">
           <Tbody>
-            {users.map((user) => (
-              <UserItem user={user} />
-            ))}
+            {users
+              .sort((a, b) => b.createdAt - a.createdAt)
+              .map((user) => (
+                <UserItem user={user} />
+              ))}
           </Tbody>
         </Table>
       </TableContainer>
