@@ -10,22 +10,19 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 import MainLayout from "layouts/MainLayout";
 import {useParams} from "react-router-dom";
 import * as User from "services/User";
-import {faker} from "@faker-js/faker";
 
 const UserDashboardPage = () => {
   const {id} = useParams();
-  const {firstName, lastName, balance} = User.findById(id);
-  const issuer = faker.finance.creditCardIssuer();
+  const {firstName, lastName, balance, cardIssuer, cardNumber, cardCVV} =
+    User.findById(id);
   return (
     <MainLayout>
       <VStack w="full" flexGrow={1} gap={3}>
@@ -40,8 +37,7 @@ const UserDashboardPage = () => {
                 {balance.toLocaleString(undefined, {style: "currency", currency: "PHP"})}
               </StatNumber>
               <StatHelpText display="flex" gap={2}>
-                {issuer} &bull; {faker.finance.creditCardNumber(issuer)} &bull;{" "}
-                {faker.finance.creditCardCVV()}
+                {cardIssuer} &bull; {cardNumber} &bull; {cardCVV}
               </StatHelpText>
             </Stat>
             <HStack>

@@ -4,6 +4,7 @@ import {faker} from "@faker-js/faker";
 
 const create = (props) => {
   const {firstName, lastName, balance, createdBy} = props;
+  const issuer = faker.finance.creditCardIssuer();
   return {
     firstName,
     lastName,
@@ -11,6 +12,9 @@ const create = (props) => {
     createdBy,
     createdAt: null,
     id: null,
+    cardIssuer: issuer,
+    cardNumber: faker.finance.creditCardNumber(issuer),
+    cardCVV: faker.finance.creditCardCVV(),
   };
 };
 
