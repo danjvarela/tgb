@@ -1,6 +1,6 @@
 import {HStack, Center, VStack, Heading} from "@chakra-ui/react";
 import Card from "components/Card";
-import {ColorModeSwitcher} from "components/ColorModeSwitcher";
+import ColorModeSwitcher from "components/ColorModeSwitcher";
 
 const FormsLayout = ({title, children}) => {
   return (
