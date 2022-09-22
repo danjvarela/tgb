@@ -1,5 +1,5 @@
 import {getFromStorage, saveToStorage} from "services/storage";
-import {curry} from "services/utilities";
+import {curry, isEmpty} from "services/utilities";
 
 const create = (props) => {
   const {email, username, password} = props;
@@ -26,7 +26,7 @@ const find = (admin) =>
 const save = (admin) => {
   const {username, email} = admin;
   const admins = all();
-  const lastId = Math.max(...admins.map((admin) => admin.id));
+  const lastId = isEmpty(admins) ? -1 : Math.max(...admins.map((admin) => admin.id));
 
   const completedAdmin = {
     ...admin,
@@ -37,6 +37,7 @@ const save = (admin) => {
   };
 
   saveToStorage("admins", [...admins, completedAdmin]);
+  return completedAdmin;
 };
 
 const update = curry((admin, newValues) => {
