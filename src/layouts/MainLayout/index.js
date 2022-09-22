@@ -8,7 +8,7 @@ const MainLayout = ({children}) => {
     <VStack w="full" h="full">
       <Header />
       <VStack w="full" h="full" flexGrow={1} px={{base: 3, md: 9}}>
-        <HStack justifyContent="space-between" w="full" gap={2}>
+        <HStack justifyContent="space-between" alignItems="center" w="full" gap={2}>
           <CustomBreadcrumb />
           <CustomSearchInput />
         </HStack>

@@ -1,10 +1,20 @@
-import {Text} from "@chakra-ui/react";
+import {Table, Tbody, TableContainer} from "@chakra-ui/react";
 import MainLayout from "layouts/MainLayout";
+import UserItem from "./components/UserItem";
 
-const UsersPage = () => {
+const UsersPage = ({users}) => {
+  console.log(users);
   return (
     <MainLayout>
-      <Text>This is the users page</Text>
+      <TableContainer w="full" maxH="full" overflowY="auto">
+        <Table variant="simple">
+          <Tbody>
+            {users.map((user) => (
+              <UserItem user={user} />
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </MainLayout>
   );
 };

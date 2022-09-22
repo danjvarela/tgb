@@ -9,20 +9,24 @@ import * as User from "services/User";
 
 const App = () => {
   const [loggedAdmin, setLoggedAdmin] = useState();
+  const [users, setUsers] = useState(User.all());
   console.log(loggedAdmin);
 
   // seed users
   useEffect(() => {
-    if (loggedAdmin) User.seed(10, loggedAdmin);
+    if (loggedAdmin) {
+      User.seed(10, loggedAdmin);
+      setUsers(User.all());
+    }
   }, [loggedAdmin]);
 
   return (
     <ChakraProvider theme={theme}>
-      <VStack w="full" h="100vh">
+      <VStack w="full" h="100vh" overflow="scroll">
         <Routes>
           <Route path="create-admin" element={<CreateAdminPage />} />
           <Route path="login" element={<LoginAdminPage onLogin={setLoggedAdmin} />} />
-          <Route path="users" element={<UsersPage />} />
+          <Route path="users" element={<UsersPage users={users} />} />
         </Routes>
       </VStack>
     </ChakraProvider>
