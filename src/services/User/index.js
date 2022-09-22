@@ -3,13 +3,13 @@ import {isEmpty, pipe} from "services/utilities";
 import {faker} from "@faker-js/faker";
 
 const create = (props) => {
-  const {firstName, lastName, balance, createdBy} = props;
+  const {firstName, lastName, balance, adminId} = props;
   const issuer = faker.finance.creditCardIssuer();
   return {
     firstName,
     lastName,
     balance,
-    createdBy,
+    adminId,
     createdAt: null,
     id: null,
     cardIssuer: issuer,
@@ -42,7 +42,7 @@ const seed = (count, currentAdmin) => {
       firstName: name.firstName(),
       lastName: name.lastName(),
       balance: 4500,
-      createdBy: currentAdmin.id,
+      adminId: currentAdmin.id,
     })
   );
 };
