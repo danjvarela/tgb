@@ -7,8 +7,41 @@ import * as serviceWorker from "./serviceWorker";
 import {BrowserRouter} from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
+import * as Admin from "services/Admin";
+import * as User from "services/User";
+import {faker} from "@faker-js/faker";
+import {getRandomElementFrom, isEmpty, pipe} from "services/utilities";
 
+// add default time locale
 TimeAgo.addDefaultLocale(en);
+
+// seed localstorage with dummy data
+const internet = faker.internet;
+isEmpty(Admin.all()) &&
+  [...new Array(3)].forEach(() => {
+    pipe(
+      Admin.create,
+      Admin.save
+    )({
+      email: internet.email(),
+      username: internet.username(),
+      password: internet.password(),
+    });
+  });
+
+const name = faker.name;
+isEmpty(User.all()) &&
+  [...new Array(10)].forEach(() => {
+    pipe(
+      User.create,
+      User.save
+    )({
+      firstName: name.firstName(),
+      lastName: name.lastName(),
+      startingBalance: faker.finance.amount(),
+      admin: getRandomElementFrom(Admin.all()),
+    });
+  });
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
