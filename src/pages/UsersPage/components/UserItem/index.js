@@ -3,8 +3,9 @@ import {Link as RouterLink} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import * as Admin from "services/Admin";
 import EditUserForm from "../EditUserForm";
+import DeleteUserDialog from "../DeleteUserDialog";
 
-const UserItem = ({user, onUserUpdate}) => {
+const UserItem = ({user, onUserUpdate, onUserDelete}) => {
   const {firstName, lastName, createdAt, adminId, id} = user;
   const adminName = Admin.findById(adminId).username;
 
@@ -36,7 +37,7 @@ const UserItem = ({user, onUserUpdate}) => {
               View
             </Link>
             <EditUserForm onUserUpdate={onUserUpdate} user={user} />
-            <Link fontSize="sm">Delete</Link>
+            <DeleteUserDialog user={user} onUserDelete={onUserDelete} />
           </HStack>
         </VStack>
         <Text fontSize="xs">

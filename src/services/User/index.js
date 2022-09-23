@@ -40,6 +40,12 @@ const update = curry((user, newValues) => {
   return users[index];
 });
 
+const deleteUser = (user) => {
+  const remainingUsers = all().filter((value) => value.id !== user.id);
+  saveToStorage("users", remainingUsers);
+  return user;
+};
+
 const seed = (count, currentAdmin) => {
   saveToStorage("users", []);
   const name = faker.name;
@@ -56,4 +62,4 @@ const seed = (count, currentAdmin) => {
   );
 };
 
-export {create, all, find, findById, save, seed, update};
+export {create, all, find, findById, save, seed, update, deleteUser as delete};
