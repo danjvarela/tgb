@@ -11,7 +11,6 @@ import * as Admin from "services/Admin";
 
 const App = () => {
   const [loggedAdmin, setLoggedAdmin] = useState(Admin.findLoggedIn());
-  const [users] = useState(User.all());
   const navigate = useNavigate();
 
   const handleLogOut = () => {
@@ -35,13 +34,7 @@ const App = () => {
           />
           <Route
             path="users"
-            element={
-              <UsersPage
-                users={users}
-                onLogOut={handleLogOut}
-                loggedAdmin={loggedAdmin}
-              />
-            }
+            element={<UsersPage onLogOut={handleLogOut} loggedAdmin={loggedAdmin} />}
           />
           <Route
             path="users/:id"
