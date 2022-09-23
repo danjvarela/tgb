@@ -4,17 +4,21 @@ import UserItem from "./components/UserItem";
 import NewUserForm from "./components/NewUserForm";
 import {useEffect, useState} from "react";
 import * as User from "services/User";
+import {isEmpty} from "services/utilities";
 
 const UsersPage = ({onLogOut, loggedAdmin}) => {
   const [newUser, setNewUser] = useState();
   const [updatedUser, setUpdatedUser] = useState();
   const [deletedUser, setDeletedUser] = useState();
+  const [searchMatches, setSearchMatches] = useState([]);
   const [users, setUsers] = useState(User.all());
 
-  useEffect(() => setUsers(User.all()), [newUser, updatedUser, deletedUser]);
+  useEffect(() => {
+    isEmpty(searchMatches) ? setUsers(User.all()) : setUsers(searchMatches);
+  }, [newUser, updatedUser, deletedUser, searchMatches]);
 
   return (
-    <MainLayout onLogOut={onLogOut} loggedAdmin={loggedAdmin}>
+    <MainLayout onLogOut={onLogOut} loggedAdmin={loggedAdmin} onSearch={setSearchMatches}>
       <HStack w="full" justifyContent="space-between">
         <Heading as="h1" size="lg">
           Users
