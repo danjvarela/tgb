@@ -10,12 +10,21 @@ import ExpensesTable from "./components/ExpensesTable";
 
 const UserDashboardPage = () => {
   const {id} = useParams();
-  const user = User.findById(id);
 
+  const [user, setUser] = useState(User.findById(id));
   const [transactions, setTransactions] = useState(Transaction.findAllByUser(user));
   const [newTransaction, setNewTransaction] = useState();
 
   useEffect(() => setTransactions(Transaction.findAllByUser(user)), [newTransaction]);
+  useEffect(() => {
+    const transactionsTotal = transactions.reduce((acc, transaction) => {
+      const typeMap = {withdrawal: -1, deposit: 1, transfer: -1};
+      acc += transaction.amount * typeMap[transaction.type];
+      return acc;
+    }, 0);
+    User.update(user, {balance: user.balance + transactionsTotal});
+    setUser(User.find(user));
+  }, [transactions]);
 
   return (
     <MainLayout>

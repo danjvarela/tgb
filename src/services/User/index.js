@@ -31,6 +31,14 @@ const save = (user) => {
   return completedUser;
 };
 
+const update = (user, newValues) => {
+  const users = all();
+  const index = users.findIndex((value) => value.id === user.id);
+  users[index] = {...users[index], ...newValues};
+  saveToStorage("users", users);
+  return users[index];
+};
+
 const seed = (count, currentAdmin) => {
   saveToStorage("users", []);
   const name = faker.name;
@@ -47,4 +55,4 @@ const seed = (count, currentAdmin) => {
   );
 };
 
-export {create, all, find, findById, save, seed};
+export {create, all, find, findById, save, seed, update};

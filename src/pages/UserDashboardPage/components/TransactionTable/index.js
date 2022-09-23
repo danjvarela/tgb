@@ -1,4 +1,5 @@
 import {Table, Thead, Tbody, Tr, Th, Td, TableContainer} from "@chakra-ui/react";
+import {toSentenceCase} from "services/utilities";
 
 const TransactionTable = ({transactions}) => {
   return (
@@ -24,7 +25,7 @@ const TransactionTable = ({transactions}) => {
             .map((value, index) => (
               <Tr key={index}>
                 <Td>{value.id}</Td>
-                <Td>{value.type}</Td>
+                <Td>{toSentenceCase(value.type)}</Td>
                 <Td>
                   {value.amount.toLocaleString(undefined, {
                     style: "currency",

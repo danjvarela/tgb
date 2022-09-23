@@ -4,8 +4,8 @@ import ReactTimeAgo from "react-time-ago";
 import * as Admin from "services/Admin";
 
 const UserItem = ({user}) => {
-  const {firstName, lastName, createdAt, createdBy, id} = user;
-  const adminName = Admin.findById(createdBy).username;
+  const {firstName, lastName, createdAt, adminId, id} = user;
+  const adminName = Admin.findById(adminId).username;
 
   const lightTheme = {
     _hover: {

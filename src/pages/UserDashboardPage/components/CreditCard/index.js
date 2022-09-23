@@ -12,6 +12,7 @@ import WithdrawForm from "./components/WithdrawFrom";
 
 const CreditCard = ({user, onTransactionChange}) => {
   const {balance, cardIssuer, cardNumber, cardCVV} = user;
+
   return (
     <HStack borderWidth={1} borderRadius="lg" p={5} w="full">
       <VStack alignItems="flex-start">
