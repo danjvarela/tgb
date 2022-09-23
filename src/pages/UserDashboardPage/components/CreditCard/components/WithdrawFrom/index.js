@@ -47,7 +47,8 @@ const WithdrawForm = ({user, onTransactionChange}) => {
           validationSchema={Yup.object({
             amount: Yup.number()
               .min(0, "Should be at least 0")
-              .required("Amount is required"),
+              .required("Amount is required")
+              .max(user.balance, "Amount should not exceed the current balance"),
           })}
           onSubmit={createTransaction}
         >
