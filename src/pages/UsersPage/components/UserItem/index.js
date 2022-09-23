@@ -2,8 +2,9 @@ import {HStack, Text, VStack, Link, Tr, Td, useColorModeValue} from "@chakra-ui/
 import {Link as RouterLink} from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import * as Admin from "services/Admin";
+import EditUserForm from "../EditUserForm";
 
-const UserItem = ({user}) => {
+const UserItem = ({user, onUserUpdate}) => {
   const {firstName, lastName, createdAt, adminId, id} = user;
   const adminName = Admin.findById(adminId).username;
 
@@ -34,7 +35,7 @@ const UserItem = ({user}) => {
             <Link as={RouterLink} to={`/users/${id}`} fontSize="sm">
               View
             </Link>
-            <Link fontSize="sm">Update</Link>
+            <EditUserForm onUserUpdate={onUserUpdate} user={user} />
             <Link fontSize="sm">Delete</Link>
           </HStack>
         </VStack>

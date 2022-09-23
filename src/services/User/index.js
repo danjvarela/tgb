@@ -1,5 +1,5 @@
 import {getFromStorage, saveToStorage} from "services/storage";
-import {isEmpty, pipe} from "services/utilities";
+import {isEmpty, pipe, curry} from "services/utilities";
 import {faker} from "@faker-js/faker";
 
 const create = (props) => {
@@ -32,13 +32,13 @@ const save = (user) => {
   return completedUser;
 };
 
-const update = (user, newValues) => {
+const update = curry((user, newValues) => {
   const users = all();
   const index = users.findIndex((value) => value.id === user.id);
   users[index] = {...users[index], ...newValues};
   saveToStorage("users", users);
   return users[index];
-};
+});
 
 const seed = (count, currentAdmin) => {
   saveToStorage("users", []);

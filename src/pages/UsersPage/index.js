@@ -7,9 +7,10 @@ import * as User from "services/User";
 
 const UsersPage = ({onLogOut, loggedAdmin}) => {
   const [newUser, setNewUser] = useState();
+  const [updatedUser, setUpdatedUser] = useState(false);
   const [users, setUsers] = useState(User.all());
 
-  useEffect(() => setUsers(User.all()), [newUser]);
+  useEffect(() => setUsers(User.all()), [newUser, updatedUser]);
 
   return (
     <MainLayout onLogOut={onLogOut} loggedAdmin={loggedAdmin}>
@@ -25,7 +26,7 @@ const UsersPage = ({onLogOut, loggedAdmin}) => {
             {users
               .sort((a, b) => b.createdAt - a.createdAt)
               .map((user) => (
-                <UserItem key={user.id} user={user} />
+                <UserItem key={user.id} user={user} onUserUpdate={setUpdatedUser} />
               ))}
           </Tbody>
         </Table>
