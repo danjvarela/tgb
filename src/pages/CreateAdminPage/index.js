@@ -1,5 +1,5 @@
 import {Button, HStack, Link, VStack, Text, Alert, AlertIcon} from "@chakra-ui/react";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Formik, Form} from "formik";
 import {useState} from "react";
 import FormsLayout from "layouts/FormsLayout";
@@ -10,12 +10,14 @@ import * as Admin from "services/Admin";
 
 const CreateAdminPage = () => {
   const [adminExists, setAdminExists] = useState(false);
+  const navigate = useNavigate();
 
   const createAdmin = (values) => {
     const admin = Admin.create(values);
     const adminFromStorage = Admin.find(admin);
     if (adminFromStorage) return setAdminExists(true);
     Admin.save(admin);
+    navigate("/login");
   };
 
   return (
