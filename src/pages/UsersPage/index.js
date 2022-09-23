@@ -2,9 +2,9 @@ import {Table, Tbody, TableContainer} from "@chakra-ui/react";
 import MainLayout from "layouts/MainLayout";
 import UserItem from "./components/UserItem";
 
-const UsersPage = ({users, onLogOut}) => {
+const UsersPage = ({users, onLogOut, loggedAdmin}) => {
   return (
-    <MainLayout onLogOut={onLogOut}>
+    <MainLayout onLogOut={onLogOut} loggedAdmin={loggedAdmin}>
       <TableContainer w="full" maxH="full" overflowY="auto">
         <Table variant="simple">
           <Tbody>

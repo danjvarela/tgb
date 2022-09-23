@@ -35,11 +35,19 @@ const App = () => {
           />
           <Route
             path="users"
-            element={<UsersPage users={users} onLogOut={handleLogOut} />}
+            element={
+              <UsersPage
+                users={users}
+                onLogOut={handleLogOut}
+                loggedAdmin={loggedAdmin}
+              />
+            }
           />
           <Route
             path="users/:id"
-            element={<UserDashboardPage onLogOut={handleLogOut} />}
+            element={
+              <UserDashboardPage onLogOut={handleLogOut} loggedAdmin={loggedAdmin} />
+            }
           />
         </Routes>
       </VStack>

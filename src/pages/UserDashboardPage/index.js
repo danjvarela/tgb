@@ -12,7 +12,7 @@ import TransferTable from "./components/TransferTable";
 import ExpenseTable from "./components/ExpenseTable";
 import NewExpenseForm from "./components/ExpenseTable/components/NewExpenseForm";
 
-const UserDashboardPage = ({onLogOut}) => {
+const UserDashboardPage = ({onLogOut, loggedAdmin}) => {
   const {id} = useParams();
 
   const [user, setUser] = useState(User.findById(id));
@@ -57,7 +57,7 @@ const UserDashboardPage = ({onLogOut}) => {
   }, [transactions, transfers, expenses]);
 
   return (
-    <MainLayout onLogOut={onLogOut}>
+    <MainLayout onLogOut={onLogOut} loggedAdmin={loggedAdmin}>
       <VStack w="full" flexGrow={1} gap={3} pb={5}>
         <Heading as="h1" size="lg" textAlign="left" w="full">
           {user.firstName} {user.lastName}
