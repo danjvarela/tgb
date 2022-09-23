@@ -7,8 +7,9 @@ import {
   StatHelpText,
   Button,
 } from "@chakra-ui/react";
+import DepositForm from "./components/DepositForm";
 
-const CreditCard = ({user}) => {
+const CreditCard = ({user, onTransactionChange}) => {
   const {balance, cardIssuer, cardNumber, cardCVV} = user;
   return (
     <HStack borderWidth={1} borderRadius="lg" p={5} w="full">
@@ -23,9 +24,7 @@ const CreditCard = ({user}) => {
           </StatHelpText>
         </Stat>
         <HStack>
-          <Button size="sm" colorScheme="green">
-            Deposit
-          </Button>
+          <DepositForm user={user} onTransactionChange={onTransactionChange} />
           <Button size="sm" colorScheme="red">
             Withdraw
           </Button>

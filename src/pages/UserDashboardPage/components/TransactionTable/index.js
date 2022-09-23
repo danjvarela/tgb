@@ -1,8 +1,14 @@
 import {Table, Thead, Tbody, Tr, Th, Td, TableContainer} from "@chakra-ui/react";
 
-const TransactionTable = () => {
+const TransactionTable = ({transactions}) => {
   return (
-    <TableContainer borderWidth={1} w="full" maxH="md" borderRadius="lg">
+    <TableContainer
+      borderWidth={1}
+      w="full"
+      borderRadius="lg"
+      maxH={48}
+      overflowY="scroll"
+    >
       <Table size="sm">
         <Thead>
           <Tr>
@@ -13,12 +19,21 @@ const TransactionTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>232334535434534</Td>
-            <Td>Withdraw</Td>
-            <Td>120</Td>
-            <Td>{Date.now()}</Td>
-          </Tr>
+          {transactions
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .map((value, index) => (
+              <Tr key={index}>
+                <Td>{value.id}</Td>
+                <Td>{value.type}</Td>
+                <Td>
+                  {value.amount.toLocaleString(undefined, {
+                    style: "currency",
+                    currency: "PHP",
+                  })}
+                </Td>
+                <Td>{new Date(value.createdAt).toString()}</Td>
+              </Tr>
+            ))}
         </Tbody>
       </Table>
     </TableContainer>

@@ -1,10 +1,10 @@
-import {faker} from "@faker-js/faker";
-import {getFromStorage} from "services/storage";
+import {getFromStorage, saveToStorage} from "services/storage";
+import {v4 as uuidv4} from "uuid";
 
 const create = (props) => {
   const {type, amount, user} = props;
   return {
-    id: faker.finance.iban(false, "PH"),
+    id: uuidv4(),
     userId: user.id,
     type: type,
     amount: amount,
@@ -12,8 +12,14 @@ const create = (props) => {
   };
 };
 
-const all = getFromStorage("transactions") || [];
+const all = () => getFromStorage("transactions") || [];
 
 const findAllByUser = (user) => all().filter((value) => value.userId === user.id);
 
-export {create, findAllByUser};
+const save = (transaction) => {
+  const completedTransaction = {...transaction, createdAt: Date.now()};
+  saveToStorage("transactions", [...all(), completedTransaction]);
+  return completedTransaction;
+};
+
+export {create, findAllByUser, save};
