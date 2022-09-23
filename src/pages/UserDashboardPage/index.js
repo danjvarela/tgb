@@ -17,12 +17,13 @@ const UserDashboardPage = () => {
 
   useEffect(() => setTransactions(Transaction.findAllByUser(user)), [newTransaction]);
   useEffect(() => {
-    const transactionsTotal = transactions.reduce((acc, transaction) => {
-      const typeMap = {withdrawal: -1, deposit: 1, transfer: -1};
+    const typeMap = {withdrawal: -1, deposit: 1, transfer: -1};
+    const newBalance = transactions.reduce((acc, transaction) => {
+      console.log(transaction.amount * typeMap[transaction.type]);
       acc += transaction.amount * typeMap[transaction.type];
       return acc;
-    }, 0);
-    User.update(user, {balance: user.balance + transactionsTotal});
+    }, user.startingBalance);
+    User.update(user, {balance: newBalance});
     setUser(User.find(user));
   }, [transactions]);
 
