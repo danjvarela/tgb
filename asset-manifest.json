@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/tgb/static/js/main.5d4178e5.js",
+    "main.js": "/tgb/static/js/main.5dad0c98.js",
     "static/js/787.8946db24.chunk.js": "/tgb/static/js/787.8946db24.chunk.js",
     "index.html": "/tgb/index.html",
     "static/media/grapes.svg": "/tgb/static/media/grapes.db1d706035deba7cf45201356dce448f.svg",
-    "main.5d4178e5.js.map": "/tgb/static/js/main.5d4178e5.js.map",
+    "main.5dad0c98.js.map": "/tgb/static/js/main.5dad0c98.js.map",
     "787.8946db24.chunk.js.map": "/tgb/static/js/787.8946db24.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.5d4178e5.js"
+    "static/js/main.5dad0c98.js"
   ]
 }
