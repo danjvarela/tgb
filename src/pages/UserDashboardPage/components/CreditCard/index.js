@@ -5,7 +5,6 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
-  Button,
 } from "@chakra-ui/react";
 import DepositForm from "./components/DepositForm";
 import WithdrawForm from "./components/WithdrawFrom";

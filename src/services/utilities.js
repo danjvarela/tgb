@@ -7,6 +7,8 @@ const isEmpty = (value) => {
   return false;
 };
 
+const getRandomElementFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
 const toSentenceCase = (str) =>
   str.replace(
     /\w\S*/g,
@@ -29,4 +31,4 @@ const curry = (fn) => {
   };
 };
 
-export {isEmpty, toSentenceCase, isValidEmail, pipe, curry};
+export {isEmpty, toSentenceCase, isValidEmail, pipe, curry, getRandomElementFrom};

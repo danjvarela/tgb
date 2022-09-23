@@ -19,6 +19,7 @@ const findBy = curry((key, value) => all().find((admin) => admin[key] === value)
 const findById = (id) => findBy("id")(parseInt(id));
 const findByEmail = (email) => findBy("email")(email.toLowerCase());
 const findByUsername = (username) => findBy("username")(username.toLowerCase());
+const findLoggedIn = () => findBy("isLoggedIn", true);
 
 const find = (admin) =>
   findById(admin.id) || findByEmail(admin.email) || findByUsername(admin.username);
@@ -58,6 +59,7 @@ export {
   findById,
   findByEmail,
   findByUsername,
+  findLoggedIn,
   save,
   create,
   update,

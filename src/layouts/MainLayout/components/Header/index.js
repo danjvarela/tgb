@@ -1,6 +1,7 @@
-import {HStack, Image, Text, useColorModeValue} from "@chakra-ui/react";
+import {HStack, IconButton, Image, Text, useColorModeValue} from "@chakra-ui/react";
 import ColorModeSwitcher from "components/ColorModeSwitcher";
 import Grapes from "assets/grapes.svg";
+import {FiLogOut} from "react-icons/fi";
 
 const Header = () => {
   const lightTheme = {
@@ -26,7 +27,10 @@ const Header = () => {
           The Grape Bank
         </Text>
       </HStack>
-      <ColorModeSwitcher />
+      <HStack>
+        <ColorModeSwitcher />
+        <IconButton icon={<FiLogOut />} variant="ghost" />
+      </HStack>
     </HStack>
   );
 };

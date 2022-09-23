@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {ChakraProvider, VStack} from "@chakra-ui/react";
 import {Routes, Route} from "react-router-dom";
 import CreateAdminPage from "pages/CreateAdminPage";
@@ -7,26 +7,23 @@ import UsersPage from "pages/UsersPage";
 import UserDashboardPage from "pages/UserDashboardPage";
 import theme from "theme";
 import * as User from "services/User";
+import * as Admin from "services/Admin";
 
 const App = () => {
-  const [loggedAdmin, setLoggedAdmin] = useState();
-  const [users, setUsers] = useState(User.all());
-  console.log(loggedAdmin);
-
-  // seed users
-  useEffect(() => {
-    if (loggedAdmin) {
-      User.seed(10, loggedAdmin);
-      setUsers(User.all());
-    }
-  }, [loggedAdmin]);
+  const [loggedAdmin, setLoggedAdmin] = useState(Admin.findLoggedIn());
+  const [users] = useState(User.all());
 
   return (
     <ChakraProvider theme={theme}>
       <VStack w="full" h="100vh" overflow="scroll">
         <Routes>
           <Route path="create-admin" element={<CreateAdminPage />} />
-          <Route path="login" element={<LoginAdminPage onLogin={setLoggedAdmin} />} />
+          <Route
+            path="login"
+            element={
+              <LoginAdminPage onLogin={setLoggedAdmin} loggedAdmin={loggedAdmin} />
+            }
+          />
           <Route path="users" element={<UsersPage users={users} />} />
           <Route path="users/:id" element={<UserDashboardPage />} />
         </Routes>

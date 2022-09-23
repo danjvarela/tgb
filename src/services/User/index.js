@@ -3,13 +3,13 @@ import {isEmpty, pipe} from "services/utilities";
 import {faker} from "@faker-js/faker";
 
 const create = (props) => {
-  const {firstName, lastName, startingBalance, adminId} = props;
+  const {firstName, lastName, startingBalance, admin} = props;
   const issuer = faker.finance.creditCardIssuer();
   return {
     firstName,
     lastName,
     startingBalance,
-    adminId,
+    adminId: admin.id,
     balance: startingBalance,
     createdAt: null,
     id: null,

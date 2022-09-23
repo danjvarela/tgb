@@ -19,13 +19,14 @@ TimeAgo.addDefaultLocale(en);
 const internet = faker.internet;
 isEmpty(Admin.all()) &&
   [...new Array(3)].forEach(() => {
+    const username = internet.userName();
     pipe(
       Admin.create,
       Admin.save
     )({
-      email: internet.email(),
-      username: internet.username(),
-      password: internet.password(),
+      username: username,
+      email: `${username}@gmail.com`,
+      password: "password",
     });
   });
 
@@ -38,7 +39,7 @@ isEmpty(User.all()) &&
     )({
       firstName: name.firstName(),
       lastName: name.lastName(),
-      startingBalance: faker.finance.amount(),
+      startingBalance: parseFloat(faker.finance.amount()),
       admin: getRandomElementFrom(Admin.all()),
     });
   });

@@ -1,19 +1,20 @@
 import {Button, HStack, Link, VStack, Text, Alert, AlertIcon} from "@chakra-ui/react";
 import {Formik, Form} from "formik";
-import {Link as RouterLink} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
+import {useState, useEffect} from "react";
 import FormsLayout from "layouts/FormsLayout";
 import * as Yup from "yup";
 import CustomPasswordInput from "components/CustomPasswordInput";
 import CustomInput from "components/CustomInput";
 import * as Admin from "services/Admin";
 
-const LoginAdminPage = ({onLogin}) => {
+const LoginAdminPage = ({onLogin, loggedAdmin}) => {
   const [errorMsg, setErrorMsg] = useState();
-  const [loggedAdmin, setLoggedAdmin] = useState();
+  const navigate = useNavigate("/users");
 
+  // navigate to users if there is a logged admin
   useEffect(() => {
-    if (onLogin && loggedAdmin) onLogin(loggedAdmin);
+    if (loggedAdmin) navigate("/users");
   }, [loggedAdmin]);
 
   const login = (values) => {
@@ -23,7 +24,7 @@ const LoginAdminPage = ({onLogin}) => {
     if (!adminFromStorage)
       return setErrorMsg("Admin with the given username or email does not exist");
     if (adminFromStorage.password !== password) return setErrorMsg("Incorrect password");
-    setLoggedAdmin(Admin.logIn(adminFromStorage));
+    onLogin(Admin.logIn(adminFromStorage));
     setErrorMsg(null);
   };
 
