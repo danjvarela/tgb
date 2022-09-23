@@ -2,7 +2,13 @@ import {Table, Thead, Tbody, Tr, Th, Td, TableContainer} from "@chakra-ui/react"
 import {toSentenceCase} from "services/utilities";
 import * as User from "services/User";
 
-const TransactionTable = ({transactions}) => {
+const TransferTable = ({user, transfers}) => {
+  const getUserFullName = (id) => {
+    if (user.id === id) return "You";
+    const {firstName, lastName} = User.findById(id);
+    return `${firstName} ${lastName}`;
+  };
+
   return (
     <TableContainer
       borderWidth={1}
@@ -15,24 +21,26 @@ const TransactionTable = ({transactions}) => {
         <Thead>
           <Tr>
             <Th>ID</Th>
-            <Th>Type</Th>
             <Th>Amount</Th>
+            <Th>Sender</Th>
+            <Th>Recipient</Th>
             <Th>Date</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {transactions
+          {transfers
             .sort((a, b) => b.createdAt - a.createdAt)
             .map((value, index) => (
               <Tr key={index}>
                 <Td>{value.id}</Td>
-                <Td>{toSentenceCase(value.type)}</Td>
                 <Td>
                   {value.amount.toLocaleString(undefined, {
                     style: "currency",
                     currency: "PHP",
                   })}
                 </Td>
+                <Td>{getUserFullName(value.fromUserId)}</Td>
+                <Td>{getUserFullName(value.toUserId)}</Td>
                 <Td>{new Date(value.createdAt).toLocaleString()}</Td>
               </Tr>
             ))}
@@ -42,4 +50,4 @@ const TransactionTable = ({transactions}) => {
   );
 };
 
-export default TransactionTable;
+export default TransferTable;
