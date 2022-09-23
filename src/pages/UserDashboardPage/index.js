@@ -1,4 +1,4 @@
-import {Button, Heading, VStack, HStack} from "@chakra-ui/react";
+import {Heading, VStack, HStack} from "@chakra-ui/react";
 import MainLayout from "layouts/MainLayout";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";

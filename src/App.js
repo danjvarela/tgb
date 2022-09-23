@@ -6,7 +6,6 @@ import LoginAdminPage from "pages/LoginAdminPage";
 import UsersPage from "pages/UsersPage";
 import UserDashboardPage from "pages/UserDashboardPage";
 import theme from "theme";
-import * as User from "services/User";
 import * as Admin from "services/Admin";
 
 const App = () => {

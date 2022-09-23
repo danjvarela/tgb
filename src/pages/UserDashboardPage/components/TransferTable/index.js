@@ -1,5 +1,4 @@
 import {Table, Thead, Tbody, Tr, Th, Td, TableContainer} from "@chakra-ui/react";
-import {toSentenceCase} from "services/utilities";
 import * as User from "services/User";
 
 const TransferTable = ({user, transfers}) => {

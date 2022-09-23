@@ -1,7 +1,5 @@
 import {getFromStorage, saveToStorage} from "services/storage";
-import {pipe} from "services/utilities";
 import {v4 as uuidv4} from "uuid";
-import * as User from "services/User";
 
 const create = (props) => {
   const {amount, user, toUser, fromUser} = props;
