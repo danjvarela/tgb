@@ -24,6 +24,12 @@ const App = () => {
     <ChakraProvider theme={theme}>
       <VStack w="full" h="100vh" overflow="scroll">
         <Routes>
+          <Route
+            path="/"
+            element={
+              <LoginAdminPage onLogin={setLoggedAdmin} loggedAdmin={loggedAdmin} />
+            }
+          />
           <Route path="create-admin" element={<CreateAdminPage />} />
           <Route
             path="login"
