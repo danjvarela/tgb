@@ -66,7 +66,7 @@ const TransferForm = ({user, onTransferChange}) => {
         >
           <Center as={Form} w="full">
             <ModalContent>
-              <ModalHeader>Withdraw</ModalHeader>
+              <ModalHeader>Transfer</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <CustomInput label="Enter Amount" name="amount" type="number" />
