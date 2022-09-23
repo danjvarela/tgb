@@ -4,7 +4,6 @@ import UserItem from "./components/UserItem";
 import NewUserForm from "./components/NewUserForm";
 import {useEffect, useState} from "react";
 import * as User from "services/User";
-import {isEmpty} from "services/utilities";
 
 const UsersPage = ({onLogOut, loggedAdmin}) => {
   const [newUser, setNewUser] = useState();
@@ -14,8 +13,12 @@ const UsersPage = ({onLogOut, loggedAdmin}) => {
   const [users, setUsers] = useState(User.all());
 
   useEffect(() => {
-    isEmpty(searchMatches) ? setUsers(User.all()) : setUsers(searchMatches);
-  }, [newUser, updatedUser, deletedUser, searchMatches]);
+    setUsers(User.all());
+  }, [newUser, updatedUser, deletedUser]);
+
+  useEffect(() => {
+    setUsers(searchMatches);
+  }, [searchMatches]);
 
   return (
     <MainLayout onLogOut={onLogOut} loggedAdmin={loggedAdmin} onSearch={setSearchMatches}>

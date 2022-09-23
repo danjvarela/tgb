@@ -6,22 +6,32 @@ import {useMatch} from "react-router-dom";
 import {FiChevronLeft} from "react-icons/fi";
 import {useEffect, useState} from "react";
 import * as User from "services/User";
+import {isEmpty} from "services/utilities";
 
 const MainLayout = ({children, onLogOut, loggedAdmin, onSearch}) => {
   const usersPagePath = useMatch("/users");
 
   const [query, setQuery] = useState("");
+  const [searchMatches, setSearchMatches] = useState([]);
 
-  useEffect(() => {
-    if (!onSearch) return function () {};
+  useEffect(() => onSearch(searchMatches), [searchMatches]);
 
+  const updateMatches = () => {
+    if (isEmpty(query)) {
+      setSearchMatches(User.all());
+      return;
+    }
     const pattern = new RegExp(query.toLowerCase(), "g");
     const matches = User.all().filter(
       (user) =>
         pattern.test(user.firstName.toLowerCase()) ||
         pattern.test(user.lastName.toLowerCase())
     );
-    onSearch(matches);
+    setSearchMatches(matches);
+  };
+
+  useEffect(() => {
+    updateMatches();
   }, [query]);
 
   const handleChange = ({target}) => setQuery(target.value);
@@ -38,7 +48,11 @@ const MainLayout = ({children, onLogOut, loggedAdmin, onSearch}) => {
             </Link>
           ) : null}
           {usersPagePath ? (
-            <CustomSearchInput value={query} onChange={handleChange} />
+            <CustomSearchInput
+              value={query}
+              onChange={handleChange}
+              onFocus={updateMatches}
+            />
           ) : null}
         </HStack>
         {children}
