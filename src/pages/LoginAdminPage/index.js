@@ -15,7 +15,7 @@ const LoginAdminPage = ({onLogin, loggedAdmin}) => {
   // navigate to users if there is a logged admin
   useEffect(() => {
     if (loggedAdmin) navigate("/users");
-  }, [loggedAdmin]);
+  }, [loggedAdmin, navigate]);
 
   const login = (values) => {
     const {usernameOrEmail, password} = values;

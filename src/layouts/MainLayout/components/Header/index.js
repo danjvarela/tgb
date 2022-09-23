@@ -3,7 +3,7 @@ import ColorModeSwitcher from "components/ColorModeSwitcher";
 import Grapes from "assets/grapes.svg";
 import {FiLogOut} from "react-icons/fi";
 
-const Header = () => {
+const Header = ({onLogOut}) => {
   const lightTheme = {
     borderBottomColor: "gray.300",
   };
@@ -29,7 +29,7 @@ const Header = () => {
       </HStack>
       <HStack>
         <ColorModeSwitcher />
-        <IconButton icon={<FiLogOut />} variant="ghost" />
+        <IconButton icon={<FiLogOut />} variant="ghost" onClick={onLogOut} />
       </HStack>
     </HStack>
   );

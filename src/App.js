@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {ChakraProvider, VStack} from "@chakra-ui/react";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import CreateAdminPage from "pages/CreateAdminPage";
 import LoginAdminPage from "pages/LoginAdminPage";
 import UsersPage from "pages/UsersPage";
@@ -12,6 +12,15 @@ import * as Admin from "services/Admin";
 const App = () => {
   const [loggedAdmin, setLoggedAdmin] = useState(Admin.findLoggedIn());
   const [users] = useState(User.all());
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    if (loggedAdmin) {
+      Admin.logOut(loggedAdmin);
+      setLoggedAdmin(null);
+      navigate("/login");
+    }
+  };
 
   return (
     <ChakraProvider theme={theme}>
@@ -24,8 +33,14 @@ const App = () => {
               <LoginAdminPage onLogin={setLoggedAdmin} loggedAdmin={loggedAdmin} />
             }
           />
-          <Route path="users" element={<UsersPage users={users} />} />
-          <Route path="users/:id" element={<UserDashboardPage />} />
+          <Route
+            path="users"
+            element={<UsersPage users={users} onLogOut={handleLogOut} />}
+          />
+          <Route
+            path="users/:id"
+            element={<UserDashboardPage onLogOut={handleLogOut} />}
+          />
         </Routes>
       </VStack>
     </ChakraProvider>
