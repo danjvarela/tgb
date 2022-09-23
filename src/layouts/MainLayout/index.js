@@ -14,7 +14,9 @@ const MainLayout = ({children, onLogOut, loggedAdmin, onSearch}) => {
   const [query, setQuery] = useState("");
   const [searchMatches, setSearchMatches] = useState([]);
 
-  useEffect(() => onSearch(searchMatches), [searchMatches]);
+  useEffect(() => {
+    if (onSearch) onSearch(searchMatches);
+  }, [searchMatches]);
 
   const updateMatches = () => {
     if (isEmpty(query)) {
