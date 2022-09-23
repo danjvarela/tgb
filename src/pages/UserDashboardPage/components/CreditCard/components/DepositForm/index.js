@@ -20,7 +20,7 @@ const DepositForm = ({user, onTransactionChange}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   const createTransaction = (values) => {
-    pipe(
+    const saved = pipe(
       Transaction.create,
       Transaction.save
     )({
@@ -28,7 +28,7 @@ const DepositForm = ({user, onTransactionChange}) => {
       type: "deposit",
       user: user,
     });
-    if (onTransactionChange) onTransactionChange(Transaction.findAllByUser(user));
+    if (onTransactionChange) onTransactionChange(saved);
     onClose();
   };
 

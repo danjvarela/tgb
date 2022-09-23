@@ -13,50 +13,46 @@ import {
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
 import CustomInput from "components/CustomInput";
-import * as Transaction from "services/Transaction";
+import * as Expense from "services/Expense";
 import {pipe} from "services/utilities";
 
-const WithdrawForm = ({user, onTransactionChange}) => {
+const NewExpenseForm = ({user, onExpenseCreated}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
 
-  const createTransaction = (values) => {
-    const saved = pipe(
-      Transaction.create,
-      Transaction.save
-    )({
-      ...values,
-      type: "withdrawal",
-      user: user,
-    });
-    if (onTransactionChange) onTransactionChange(saved);
+  const createExpense = (values) => {
+    const saved = pipe(Expense.create, Expense.save)({...values, user: user});
+    if (onExpenseCreated) onExpenseCreated(saved);
     onClose();
   };
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="red" size="sm">
-        Withdraw
+      <Button onClick={onOpen} colorScheme="green" size="sm">
+        New
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <Formik
           initialValues={{
+            description: "",
             amount: "",
           }}
           validationSchema={Yup.object({
+            description: Yup.string().required("Description is required"),
             amount: Yup.number()
               .min(0, "Should be at least 0")
               .required("Amount is required"),
           })}
-          onSubmit={createTransaction}
+          onSubmit={createExpense}
         >
           <Center as={Form} w="full">
             <ModalContent>
-              <ModalHeader>Withdraw</ModalHeader>
+              <ModalHeader>New Expense</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <CustomInput label="Enter Amount" name="amount" type="number" />
+                <CustomInput label="Description" name="description" type="text" />
+                <CustomInput label="Amount" name="amount" type="number" />
               </ModalBody>
 
               <ModalFooter>
@@ -75,4 +71,4 @@ const WithdrawForm = ({user, onTransactionChange}) => {
   );
 };
 
-export default WithdrawForm;
+export default NewExpenseForm;
